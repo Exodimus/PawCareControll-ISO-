@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.pawcarecontrol.security_fragments.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_appointments"
+            app:destination="@id/appointments" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.pawcarecontrol.security_fragments.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_doctors"
+            app:destination="@id/doctors" />
+        <action
+            android:id="@+id/action_loginFragment_to_appointments"
+            app:destination="@id/appointments" />
+    </fragment>
+    <navigation android:id="@+id/pets"
+        app:startDestination="@id/listPetsFragment">
+        <fragment
+            android:id="@+id/listPetsFragment"
+            android:name="com.example.pawcarecontrol.list_fragments.ListPetsFragment"
+            android:label="fragment_list_pets"
+            tools:layout="@layout/fragment_list_pets" >
+            <action
+                android:id="@+id/action_listPetsFragment_to_createPetFragment"
+                app:destination="@id/createPetFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/createPetFragment"
+            android:name="com.example.pawcarecontrol.create_fragments.CreatePetFragment"
+            android:label="fragment_create_pet"
+            tools:layout="@layout/fragment_create_pet" >
+            <action
+                android:id="@+id/action_createPetFragment_to_listPetsFragment"
+                app:destination="@id/listPetsFragment" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_doctors"
+            app:destination="@id/doctors" />
+        <action
+            android:id="@+id/action_global_appointments2"
+            app:destination="@id/appointments" />
+    </navigation>
+    <navigation android:id="@+id/appointments"
+        app:startDestination="@id/listAppointmentsFragment">
+        <fragment
+            android:id="@+id/listAppointmentsFragment"
+            android:name="com.example.pawcarecontrol.list_fragments.ListAppointmentsFragment"
+            android:label="ListAppointmentsFragment"
+            tools:layout="@layout/fragment_list_appointments" >
+            <action
+                android:id="@+id/action_listAppointmentsFragment_to_createAppointmentFragment"
+                app:destination="@id/createAppointmentFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/createAppointmentFragment"
+            android:name="com.example.pawcarecontrol.create_fragments.CreateAppointmentFragment"
+            android:label="CreateAppointmentFragment"
+            tools:layout="@layout/fragment_create_appointment" >
+            <action
+                android:id="@+id/action_createAppointmentFragment_to_listAppointmentsFragment"
+                app:destination="@id/listAppointmentsFragment" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_pets2"
+            app:destination="@id/pets" />
+        <action
+            android:id="@+id/action_global_doctors2"
+            app:destination="@id/doctors" />
+    </navigation>
+    <navigation android:id="@+id/doctors"
+        app:startDestination="@id/listDoctorsFragment">
+        <fragment
+            android:id="@+id/listDoctorsFragment"
+            android:name="com.example.pawcarecontrol.list_fragments.ListDoctorsFragment"
+            android:label="fragment_list_doctors"
+            tools:layout="@layout/fragment_list_doctors" >
+            <action
+                android:id="@+id/action_listDoctorsFragment_to_createDoctorFragment"
+                app:destination="@id/createDoctorFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/createDoctorFragment"
+            android:name="com.example.pawcarecontrol.create_fragments.CreateDoctorFragment"
+            android:label="fragment_create_doctor"
+            tools:layout="@layout/fragment_create_doctor" >
+            <action
+                android:id="@+id/action_createDoctorFragment_to_listDoctorsFragment"
+                app:destination="@id/listDoctorsFragment" />
+            <argument
+                android:name="DoctorID"
+                app:argType="integer" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_pets"
+            app:destination="@id/pets" />
+        <action
+            android:id="@+id/action_global_appointments"
+            app:destination="@id/appointments" />
+    </navigation>
+</navigation>
