@@ -1,21 +1,11 @@
+buildscript {
+    dependencies {
+        classpath(libs.google.services)
+    }
+}
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    kotlin("jvm") version "2.1.20"
-}
-
-group = "sv.edu.udbvirtual"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(17)
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    id("androidx.navigation.safeargs.kotlin") version "2.7.2" apply false
 }

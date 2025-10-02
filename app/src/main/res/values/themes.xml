@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PawCareControl" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.PawCareControl" parent="Base.Theme.PawCareControl" />
+
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.PawCareControl</item>
+    </style>
+</resources>

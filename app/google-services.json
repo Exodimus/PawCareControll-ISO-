@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "346890476680",
+    "project_id": "dsm941-a9f05",
+    "storage_bucket": "dsm941-a9f05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346890476680:android:ee5642ad62dc3dbb48933d",
+        "android_client_info": {
+          "package_name": "com.example.pawcarecontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346890476680-dbu53v339u78tc3m1emakroar2narja8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pawcarecontrol",
+            "certificate_hash": "6cc8faccc4412b9ec992a86188c824f092efa14e"
+          }
+        },
+        {
+          "client_id": "346890476680-u2747c66ctvuvqfhh2gg6evq13vtrg8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEQVJQDawkFm05Y0zkLEf9K-sIAK3wkqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346890476680-u2747c66ctvuvqfhh2gg6evq13vtrg8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
