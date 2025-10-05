@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_fragments.CreateAppointmentFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:paddingBottom="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingVertical="40dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="55dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/inika"
+                android:textStyle="bold"
+                android:text="Registro de Citas"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rounded_box"
+                app:layout_constraintTop_toBottomOf="@id/imageView2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mascota"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="20dp"
+                app:boxCollapsedPaddingTop="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputMascota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_input"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp"
+                    android:paddingVertical="13dp"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Doctor"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    app:boxCollapsedPaddingTop="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputDoc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_rounded_input"
+                        android:fontFamily="@font/inika"
+                        android:textSize="16sp"
+                        android:paddingVertical="13dp"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnAddAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_details"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inika"
+                android:paddingHorizontal="10dp"
+                android:text="Guardar"
+                android:layout_marginTop="0dp"
+                android:textSize="21sp" android:minHeight="48dp"/>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
