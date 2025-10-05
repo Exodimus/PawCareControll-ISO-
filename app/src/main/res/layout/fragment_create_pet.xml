@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".create_fragments.CreatePetFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary"
+        android:paddingBottom="0dp">
+
+        <ImageView
+            android:id="@+id/imageBack1"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <ImageView
+            android:id="@+id/imageBack2"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="350dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <ImageView
+            android:id="@+id/imageBack3"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="1.61dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="415dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <ImageView
+            android:id="@+id/imageBack4"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="360dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="415dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <ImageView
+            android:id="@+id/imageBack5"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="1.61dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="550dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <ImageView
+            android:id="@+id/imageBack6"
+            android:layout_width="47dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="360dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="550dp"
+            app:srcCompat="@drawable/back_utils5"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingVertical="40dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="55dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/inika"
+                android:text="Registro de Mascotas"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="57dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="Mascotas"
+                    app:srcCompat="@drawable/views_utils3" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:layout_marginBottom="30dp"
+                app:boxCollapsedPaddingTop="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_input"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp"
+                    android:paddingVertical="13dp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Raza"
+                android:layout_marginBottom="30dp"
+                app:boxCollapsedPaddingTop="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputRace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_input"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp"
+                    android:paddingVertical="13dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nacimiento"
+                android:layout_marginBottom="30dp"
+                app:boxCollapsedPaddingTop="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_input"
+                    android:fontFamily="@font/inika"
+                    android:paddingVertical="13dp"
+                    android:focusable="false"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dueño"
+                android:layout_marginBottom="30dp"
+                app:boxCollapsedPaddingTop="0dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputOwner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_rounded_input"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp"
+                    android:paddingVertical="13dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textImageView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Foto de perfil"
+                    android:textColor="#FFFFFF"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/imagePick"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="pickPhoto"
+                    android:background="@drawable/shape_rounded_button"
+                    android:textColorHint="#FFFFFF"
+                    android:fontFamily="@font/inika"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:paddingVertical="6dp"
+                    android:hint="upload img..."
+                    />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/ic_launcher_background" />
+            <!--                android:onClick="pickPhoto"-->
+            <Button
+                android:id="@+id/btnAddPet"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_details"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inika"
+                android:paddingHorizontal="10dp"
+                android:text="Registrar"
+                android:textSize="21sp" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>
