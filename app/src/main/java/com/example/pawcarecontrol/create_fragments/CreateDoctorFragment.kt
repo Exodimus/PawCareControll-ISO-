@@ -108,12 +108,12 @@ class CreateDoctorFragment : Fragment() {
     private fun createDoctor(doctor: PostDoctor) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response: Response<PostDoctor> = DoctorClient.service.createDoctor(doctor).execute()
+                val doctorClient = DoctorClient(requireContext()) // ✅ crear instancia
+                val response: Response<PostDoctor> = doctorClient.service.createDoctor(doctor).execute()
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Usuario guardado exitosamente", Toast.LENGTH_LONG).show()
-
                         findNavController().navigate(R.id.action_createDoctorFragment_to_listDoctorsFragment)
                     } else {
                         Toast.makeText(requireContext(), "Error del servidor: ${response.errorBody()?.string()}", Toast.LENGTH_LONG).show()
@@ -139,7 +139,8 @@ class CreateDoctorFragment : Fragment() {
     private fun updateDoctor(doctor: PostDoctor) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = DoctorClient.service.updateDoctor(args.DoctorID, doctor)
+                val doctorClient = DoctorClient(requireContext()) // ✅ crear instancia
+                val response = doctorClient.service.updateDoctor(args.DoctorID, doctor)
 
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
@@ -169,7 +170,8 @@ class CreateDoctorFragment : Fragment() {
     private fun getDoctor(callback: (Doctor?) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val doctor = DoctorClient.service.getDoctor(args.DoctorID)
+                val doctorClient = DoctorClient(requireContext()) // ✅ crear instancia
+                val doctor = doctorClient.service.getDoctor(args.DoctorID)
                 withContext(Dispatchers.Main) {
                     callback(doctor)
                 }

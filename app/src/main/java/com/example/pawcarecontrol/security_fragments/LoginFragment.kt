@@ -27,7 +27,7 @@ class LoginFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_login, container, false)
         val btnLogin = root.findViewById<Button>(R.id.btnLogin)
 
-        btnLogin.setOnClickListener{
+        btnLogin.setOnClickListener {
             val userEmail = root.findViewById<TextInputEditText>(R.id.inputUser).text.toString()
             val userPass = root.findViewById<TextInputEditText>(R.id.inputPass).text.toString()
 
@@ -36,19 +36,23 @@ class LoginFragment : Fragment() {
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val user = UserClient.service.getUserByEmailAndPass(userEmail, userPass)
+                        // ✅ Crear instancia de UserClient pasando el contexto
+                        val userClient = UserClient(requireContext())
+                        val user = userClient.service.getUserByEmailAndPass(userEmail, userPass)
+
                         // Actualizar la UI en el hilo principal
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Inicio de sesión completado", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(requireContext(), "Inicio de sesión completado", Toast.LENGTH_LONG).show()
+
                             Global.userType = user.tipoUsuario.nombre_Tipo_Usuario
+
                             if (Global.userType == "Administrador") {
                                 findNavController().navigate(R.id.action_loginFragment_to_doctors)
                             } else {
                                 findNavController().navigate(R.id.action_loginFragment_to_appointments)
                             }
                         }
-                    }catch (e: HttpException) {
+                    } catch (e: HttpException) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(requireContext(), "Credenciales incorrectas. Por favor, inténtelo de nuevo.", Toast.LENGTH_LONG).show()
                         }
@@ -62,9 +66,9 @@ class LoginFragment : Fragment() {
                         }
                     }
                 }
-
             }
         }
+
         return root
     }
 }

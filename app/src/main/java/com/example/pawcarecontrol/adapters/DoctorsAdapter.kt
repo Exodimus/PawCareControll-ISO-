@@ -66,15 +66,17 @@ class DoctorsAdapter (private var doctorsList: MutableList<Doctor>,
         holder.btnDeleteDoctor.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val response = DoctorClient.service.deleteDoctor(doctor.id)
+                    val doctorClient = DoctorClient(context)
+                    val response = doctorClient.service.deleteDoctor(doctor.id)
 
                     withContext(Dispatchers.Main) {
                         // Eliminación exitosa
                         doctorsList.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, doctorsList.size)
-                        Toast.makeText(context, "Usuario eliminado con exito", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Usuario eliminado con éxito", Toast.LENGTH_LONG).show()
                     }
+
                 } catch (e: HttpException) {
                     // Error de HTTP
                     withContext(Dispatchers.Main) {
