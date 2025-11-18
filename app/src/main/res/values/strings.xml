@@ -6,4 +6,7 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appointment_date_format">Fecha: %1$s</string>
+    <string name="appointment_doctor_format">Doctor: %1$s</string>
+    <string name="appointment_reason_format">Motivo: %1$s</string>
 </resources>

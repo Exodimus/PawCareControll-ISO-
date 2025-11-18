@@ -11,7 +11,7 @@ interface DoctorService {
     suspend fun getDoctors(): MutableList<Doctor>
 
     @POST("${route}/Save")
-    suspend fun createDoctor(@Body user: PostDoctor): Call<PostDoctor>
+    suspend fun createDoctor(@Body user: PostDoctor): Response<PostDoctor>
 
     @DELETE("${route}/Delete/{id}")
     suspend fun deleteDoctor(@Path("id") id: Int)

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main"
+    android:layout_height="match_parent"
+    tools:context=".list_fragments.ListAppointmentsFragment">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingVertical="40dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="55dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/inika"
+                android:text="Historial de Citas"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                           android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:layout_marginTop="120dp"
+                                           android:layout_marginLeft="30dp"
+                                           android:layout_marginRight="30dp"
+                                           android:background="@color/white"
+                                           app:cardElevation="0dp"
+                                           app:cardCornerRadius="35dp">
+
+            <LinearLayout
+                    android:id="@+id/layoutAppointments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="16dp">
+
+                <!-- Datos de la cita -->
+                <TextView
+                        android:id="@+id/textViewDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha: XX/XX/XXXX"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/textViewDoctor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor: Pedro Parker"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                <TextView
+                        android:id="@+id/textViewReason"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Motivo: Motivo de la Cita"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                           android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:layout_marginTop="270dp"
+                                           android:layout_marginLeft="30dp"
+                                           android:layout_marginRight="30dp"
+                                           android:background="@color/white"
+                                           app:cardElevation="0dp"
+                                           app:cardCornerRadius="35dp">
+
+            <LinearLayout
+                    android:id="@+id/layoutAppointmentsTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="16dp">
+
+                <!-- Datos de la cita -->
+                <TextView
+                        android:id="@+id/textViewDateTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha: XX/XX/XXXX"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/textViewDoctorTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor: Natalia Jimenez"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                <TextView
+                        android:id="@+id/textViewReasonTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Motivo: Motivo de la Cita"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                           android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           android:layout_marginTop="420dp"
+                                           android:layout_marginLeft="30dp"
+                                           android:layout_marginRight="30dp"
+                                           android:background="@color/white"
+                                           app:cardElevation="0dp"
+                                           app:cardCornerRadius="35dp">
+
+            <LinearLayout
+                    android:id="@+id/layoutAppointmentsTri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:padding="16dp">
+
+                <!-- Datos de la cita -->
+                <TextView
+                        android:id="@+id/textViewDateTri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha: XX/XX/XXXX"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/textViewDoctorTri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor: Alexa Quintanilla"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+
+                <TextView
+                        android:id="@+id/textViewReasonTri"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Motivo: Motivo de la Cita"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="5dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnCreateAppointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="bottom|end"
+            android:contentDescription="Añadir"
+            android:text="Crear"
+            app:icon="@drawable/btn_add_image"
+            android:backgroundTint="@color/dark_details"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:foregroundTint="@color/primary"
+            app:backgroundTint="@color/dark_details"
+            app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemIconSize="40dp"
+            app:itemIconTint="@color/white"
+            app:itemTextAppearanceActive="@dimen/design_bottom_navigation_active_text_size"
+            app:itemTextAppearanceInactive="@dimen/design_bottom_navigation_text_size"
+            app:itemTextColor="@color/white"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navigation_menu"
+            tools:ignore="PrivateResource" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

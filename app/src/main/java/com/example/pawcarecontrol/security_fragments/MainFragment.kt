@@ -63,27 +63,23 @@ class MainFragment : Fragment() {
         }
 
     private fun manageResults(task: Task<GoogleSignInAccount>) {
-        try {
-            val account: GoogleSignInAccount? = task.result
+        val account: GoogleSignInAccount? = task.result
 
-            if (account != null) {
-                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                auth.signInWithCredential(credential).addOnCompleteListener { firebaseTask ->
-                    if (firebaseTask.isSuccessful) {
-                        val data = Bundle()
-                        data.putString("username", account.displayName)
-                        findNavController().navigate(R.id.action_mainFragment_to_appointments)
-                        Toast.makeText(requireContext(), "Iniciado", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Error: ${firebaseTask.exception?.message}", Toast.LENGTH_SHORT).show()
-                    }
+        if (account != null) {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            auth.signInWithCredential(credential).addOnCompleteListener {
+                if (task.isSuccessful) {
+                    val data = Bundle()
+                    data.putString("username", account.displayName)
+                    findNavController().navigate(R.id.action_mainFragment_to_appointments)
+                    Toast.makeText(requireContext(), "Iniciado", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(requireContext(), "Iniciado", Toast.LENGTH_SHORT).show()
                 }
-
-            } else {
-                Toast.makeText(requireContext(), task.exception.toString(), Toast.LENGTH_SHORT).show()
             }
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Excepción: ${e.message}", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 }
