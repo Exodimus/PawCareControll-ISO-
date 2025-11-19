@@ -6,8 +6,10 @@ import retrofit2.http.*
 
 private const val route = "Usuario"
 
+// 1 = Administrador, 2 = Veterinario/Doctor
+
 interface DoctorService {
-    @GET("${route}/All/2")
+    @GET("${route}/AllDoctores/2")
     suspend fun getDoctors(): MutableList<Doctor>
 
     @POST("${route}/Save")
