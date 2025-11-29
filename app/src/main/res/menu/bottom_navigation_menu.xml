@@ -15,4 +15,9 @@
         android:enabled="true"
         android:icon="@drawable/menu_mascotas"
         android:title="Mascotas"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/btn_add_image"
+        android:title="Cerrar sesión" />
+
 </menu>

@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pawcarecontrol.Helpers.AuthHelper
 import com.example.pawcarecontrol.R
 import com.example.pawcarecontrol.adapters.DoctorsAdapter
 import com.example.pawcarecontrol.model.Doctor.Doctor
 import com.example.pawcarecontrol.model.Doctor.DoctorClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,12 +27,22 @@ import kotlinx.coroutines.withContext
 class ListDoctorsFragment : Fragment() {
     private lateinit var doctorsAdapter: DoctorsAdapter
     private lateinit var doctors: MutableList<Doctor>
+    private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_list_doctors, container, false)
+        auth = FirebaseAuth.getInstance()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
         val recyclerViewDoctors = root.findViewById<RecyclerView>(R.id.doctorsContainer)
         val btnCreateDoctor = root.findViewById<ExtendedFloatingActionButton>(R.id.btnCreateDoctor)
         val bottomNavigation = root.findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -61,6 +76,12 @@ class ListDoctorsFragment : Fragment() {
                 }
                 R.id.page_3 -> {
                     navigationController.navigate(R.id.action_global_pets)
+                    true
+                }
+                R.id.nav_logout -> {      // ← aquí manejas el logout
+                    AuthHelper.logout(requireContext(), googleSignInClient) {
+                        findNavController().navigate(R.id.mainFragment)
+                    }
                     true
                 }
                 else -> false

@@ -69,6 +69,12 @@ class MainFragment : Fragment() {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
             auth.signInWithCredential(credential).addOnCompleteListener {
                 if (task.isSuccessful) {
+                    val userName = account.displayName ?: ""
+                    val prefs = requireContext()
+                        .getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
+                    prefs.edit()
+                        .putString("username", userName)
+                        .apply()
                     val data = Bundle()
                     data.putString("username", account.displayName)
                     findNavController().navigate(R.id.action_mainFragment_to_appointments)

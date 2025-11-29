@@ -9,11 +9,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.pawcarecontrol.Global
+import com.example.pawcarecontrol.Helpers.AuthHelper
 import com.example.pawcarecontrol.R
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class ListAppointmentsFragment : Fragment() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
     data class Appointment(
         val date: String,
         val doctor: String,
@@ -29,11 +36,24 @@ class ListAppointmentsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val root = inflater.inflate(R.layout.fragment_list_appointments, container, false)
+        auth = FirebaseAuth.getInstance()
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         val btnCreateAppointment = root.findViewById<ExtendedFloatingActionButton>(R.id.btnCreateAppointment)
+        val lblUser =  root.findViewById<TextView>(R.id.txtUser)
         val layoutAppointments = root.findViewById<LinearLayout>(R.id.layoutAppointments)
-
+        val prefs = requireContext().getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
+        val userName = prefs.getString("username", "")
+        lblUser.setText("usuario:"+userName)
         for (dataAppointment in Appointments) {
             val appointmentView = layoutInflater.inflate(R.layout.item_appointment, null)
 
@@ -74,6 +94,12 @@ class ListAppointmentsFragment : Fragment() {
 
                 R.id.page_3 -> {
                     findNavController().navigate(R.id.action_global_pets2)
+                    true
+                }
+                R.id.nav_logout -> {      // ← aquí manejas el logout
+                    AuthHelper.logout(requireContext(), googleSignInClient) {
+                        findNavController().navigate(R.id.mainFragment)
+                    }
                     true
                 }
 
