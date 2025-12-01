@@ -23,8 +23,7 @@ class ListDoctorsFragment : Fragment() {
 
     private lateinit var doctorsAdapter: DoctorsAdapter
     private lateinit var doctors: MutableList<Doctor>
-    private lateinit var doctorClient: DoctorClient   // 👈 instancia del cliente
-
+    private lateinit var doctorClient: DoctorClient
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +36,7 @@ class ListDoctorsFragment : Fragment() {
 
         val context = requireContext()
 
-        // 👇 aquí se crea la instancia usando el Context
+
         doctorClient = DoctorClient(context)
 
         doctors = mutableListOf()
@@ -45,7 +44,6 @@ class ListDoctorsFragment : Fragment() {
         recyclerViewDoctors.layoutManager = LinearLayoutManager(context)
         recyclerViewDoctors.adapter = doctorsAdapter
 
-        // Se mantiene tu callback por si luego quieres usar la lista
         getDoctors { doctorsList ->
             doctorsAdapter.updateDoctors(doctorsList)
         }
@@ -81,7 +79,6 @@ class ListDoctorsFragment : Fragment() {
     private fun getDoctors(callback: (List<Doctor>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 👇 AHORA usa la instancia doctorClient, no la clase
                 val doctorsList = doctorClient.service.getDoctors()
                 withContext(Dispatchers.Main) {
                     doctorsAdapter.updateDoctors(doctorsList)
