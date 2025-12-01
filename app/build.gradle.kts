@@ -11,17 +11,28 @@ android {
     namespace = "com.example.pawcarecontrol"
     compileSdk = 34
 
+    signingConfigs {
+        create("debugCustom") {
+            storeFile = file("pawcare.jks") // Cambia esta ruta
+            storePassword = "123456"     // Cambia esta contraseña
+            keyAlias = "key0"                            // Cambia este alias
+            keyPassword = "123456"       // Cambia esta contraseña
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.pawcarecontrol"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debugCustom")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -30,6 +41,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -42,6 +54,7 @@ android {
         enable = true
     }
 }
+
 
 dependencies {
     //NavComponent
