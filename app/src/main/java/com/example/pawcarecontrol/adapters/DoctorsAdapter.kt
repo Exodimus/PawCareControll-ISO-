@@ -25,10 +25,15 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-class DoctorsAdapter (private var doctorsList: MutableList<Doctor>,
-                      private val context: Context,
-                      private val navigationControler: NavController
-    ): RecyclerView.Adapter<DoctorsAdapter.DoctorsViewHolder>(){
+class DoctorsAdapter(
+    private var doctorsList: MutableList<Doctor>,
+    private val context: Context,
+    private val navigationControler: NavController
+) : RecyclerView.Adapter<DoctorsAdapter.DoctorsViewHolder>() {
+
+
+    private val doctorClient by lazy { DoctorClient(context) }
+
     class DoctorsViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val ivImage: ImageView = view.findViewById(R.id.ivImage)
         val tvName: TextView = view.findViewById(R.id.tvName)
@@ -44,51 +49,46 @@ class DoctorsAdapter (private var doctorsList: MutableList<Doctor>,
 
     override fun onBindViewHolder(holder: DoctorsViewHolder, position: Int) {
         val doctor = doctorsList[position]
-        var genderText = ""
-
-        if(doctor.genero == "Femenino") {
-            genderText = "Dra."
-            holder.ivImage.setImageResource(R.drawable.ic_female_doctor)
+        val genderText = if (doctor.genero == "Femenino") {
+            holder.ivImage.setImageResource(R.drawable.ic_female_doctor); "Dra."
         } else {
-            genderText = "Dr."
-            holder.ivImage.setImageResource(R.drawable.ic_male_doctor)
+            holder.ivImage.setImageResource(R.drawable.ic_male_doctor); "Dr."
         }
 
-        holder.tvName.text = "${genderText} ${doctor.nombres} ${doctor.apellidos}"
+        holder.tvName.text = "$genderText ${doctor.nombres} ${doctor.apellidos}"
         holder.tvPhone.text = doctor.correo
 
-        holder.btnEditDoctor.setOnClickListener{
-            navigationControler.navigate(ListDoctorsFragmentDirections.actionListDoctorsFragmentToCreateDoctorFragment(
-                DoctorID = doctor.id
-            ))
+        holder.btnEditDoctor.setOnClickListener {
+            navigationControler.navigate(
+                ListDoctorsFragmentDirections.actionListDoctorsFragmentToCreateDoctorFragment(
+                    DoctorID = doctor.id
+                )
+            )
         }
 
-        holder.btnDeleteDoctor.setOnClickListener{
+        holder.btnDeleteDoctor.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val response = DoctorClient.service.deleteDoctor(doctor.id)
+                    // 👇 AHORA usando la instancia
+                    val response = doctorClient.service.deleteDoctor(doctor.id)
 
                     withContext(Dispatchers.Main) {
-                        // Eliminación exitosa
                         doctorsList.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, doctorsList.size)
-                        Toast.makeText(context, "Usuario eliminado con exito", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Usuario eliminado con éxito", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: HttpException) {
-                    // Error de HTTP
                     withContext(Dispatchers.Main) {
                         Log.e("DoctorsAdapter", "Error del servidor: ${e.message}", e)
                         Toast.makeText(context, "Error del servidor: ${e.message}", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: IOException) {
-                    // Error de red
                     withContext(Dispatchers.Main) {
                         Log.e("DoctorsAdapter", "Error de red: ${e.message}", e)
                         Toast.makeText(context, "Error de red. Por favor, revise su conexión.", Toast.LENGTH_LONG).show()
                     }
                 } catch (e: Exception) {
-                    // Otros errores
                     withContext(Dispatchers.Main) {
                         Log.e("DoctorsAdapter", "Error desconocido: ${e.message}", e)
                         Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
@@ -100,7 +100,7 @@ class DoctorsAdapter (private var doctorsList: MutableList<Doctor>,
 
     override fun getItemCount() = doctorsList.size
 
-    fun updateDoctors (newDoctors: List<Doctor>) {
+    fun updateDoctors(newDoctors: List<Doctor>) {
         doctorsList.clear()
         doctorsList.addAll(newDoctors)
         notifyDataSetChanged()

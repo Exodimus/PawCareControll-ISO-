@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.pawcarecontrol.Global
 import com.example.pawcarecontrol.R
@@ -20,27 +21,32 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class LoginFragment : Fragment() {
+
+    private lateinit var userClient: UserClient
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        userClient = UserClient(requireContext())  // ✅ instancia
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_login, container, false)
         val btnLogin = root.findViewById<Button>(R.id.btnLogin)
 
-        btnLogin.setOnClickListener{
+        btnLogin.setOnClickListener {
             val userEmail = root.findViewById<TextInputEditText>(R.id.inputUser).text.toString()
-            val userPass = root.findViewById<TextInputEditText>(R.id.inputPass).text.toString()
+            val userPass  = root.findViewById<TextInputEditText>(R.id.inputPass).text.toString()
 
             if (userEmail.isEmpty() || userPass.isEmpty()) {
                 Toast.makeText(requireContext(), "Por favor complete todos los campos.", Toast.LENGTH_LONG).show()
             } else {
-                CoroutineScope(Dispatchers.IO).launch {
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     try {
-                        val user = UserClient.service.getUserByEmailAndPass(userEmail, userPass)
-                        // Actualizar la UI en el hilo principal
+                        val user = userClient.service.getUserByEmailAndPass(userEmail, userPass) // ✅
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Inicio de sesión completado", Toast.LENGTH_LONG)
-                                .show()
+                            Toast.makeText(requireContext(), "Inicio de sesión completado", Toast.LENGTH_LONG).show()
                             Global.userType = user.tipoUsuario.nombre_Tipo_Usuario
                             if (Global.userType == "Administrador") {
                                 findNavController().navigate(R.id.action_loginFragment_to_doctors)
@@ -48,21 +54,14 @@ class LoginFragment : Fragment() {
                                 findNavController().navigate(R.id.action_loginFragment_to_appointments)
                             }
                         }
-                    }catch (e: HttpException) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Credenciales incorrectas. Por favor, inténtelo de nuevo.", Toast.LENGTH_LONG).show()
-                        }
-                    } catch (e: IOException) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Error de red. Por favor, revise su conexión.", Toast.LENGTH_LONG).show()
-                        }
-                    } catch (e: Exception) {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                    }
+                    } catch (e: HttpException) { withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Credenciales incorrectas. Por favor, inténtelo de nuevo.", Toast.LENGTH_LONG).show()
+                    }} catch (e: IOException) { withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error de red. Por favor, revise su conexión.", Toast.LENGTH_LONG).show()
+                    }} catch (e: Exception) { withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }}
                 }
-
             }
         }
         return root
