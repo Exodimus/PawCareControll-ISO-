@@ -2,6 +2,7 @@ package com.example.pawcarecontrol.security_fragments
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -56,36 +58,57 @@ class MainFragment : Fragment() {
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                manageResults(task)
+            val data = result.data
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            try {
+                val account = task.getResult(ApiException::class.java)
+                manageResults(task)   // aquí ya sabes que fue OK
+            } catch (e: ApiException) {
+                Log.e("GOOGLE_SIGN_IN", "Fallo login: ${e.statusCode}", e)
             }
         }
 
-    private fun manageResults(task: Task<GoogleSignInAccount>) {
-        val account: GoogleSignInAccount? = task.result
+    private fun manageResults(googleSignInTask: Task<GoogleSignInAccount>) {
+        // Comprobamos si la tarea de Google Sign-In fue exitosa primero.
+        if (googleSignInTask.isSuccessful) {
+            val account: GoogleSignInAccount? = googleSignInTask.result
+            if (account?.idToken != null) {
+                // Usamos el idToken de la cuenta de Google para crear una credencial de Firebase.
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
-        if (account != null) {
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-            auth.signInWithCredential(credential).addOnCompleteListener {
-                if (task.isSuccessful) {
-                    val userName = account.displayName ?: ""
-                    val prefs = requireContext()
-                        .getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
-                    prefs.edit()
-                        .putString("username", userName)
-                        .apply()
-                    val data = Bundle()
-                    data.putString("username", account.displayName)
-                    findNavController().navigate(R.id.action_mainFragment_to_appointments)
-                    Toast.makeText(requireContext(), "Iniciado", Toast.LENGTH_SHORT).show()
+                // Inicia sesión en Firebase con la credencial.
+                auth.signInWithCredential(credential)
+                    .addOnCompleteListener { firebaseAuthTask -> // Renombramos 'it' a 'firebaseAuthTask' para claridad.
 
-                } else {
-                    Toast.makeText(requireContext(), "Iniciado", Toast.LENGTH_SHORT).show()
-                }
+                        if (firebaseAuthTask.isSuccessful) {
+                            // 1. Obtener el email como identificador principal.
+                            val userEmail = account.displayName ?: ""
+
+                            // 2. Guardar el email en SharedPreferences para usarlo en otros fragments.
+                            val prefs = requireContext().getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
+                            prefs.edit()
+                                .putString("username", userEmail)
+                                .apply()
+
+                            // 3. Mostrar un mensaje de éxito.
+                            Toast.makeText(requireContext(), "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+
+                            // 4. Navegar al siguiente destino solo si todo fue bien.
+                            findNavController().navigate(R.id.action_mainFragment_to_appointments)
+                        } else {
+                            // El inicio de sesión en Firebase falló. Informar al usuario.
+                            Toast.makeText(requireContext(), "Error de autenticación con Firebase.", Toast.LENGTH_LONG).show()
+                        }
+                    }
+            } else {
+                // Caso raro donde la cuenta no tiene un idToken.
+                Toast.makeText(requireContext(), "No se pudo obtener el token de Google.", Toast.LENGTH_LONG).show()
             }
         } else {
-            Toast.makeText(requireContext(), task.exception.toString(), Toast.LENGTH_SHORT).show()
+            // La tarea inicial de Google Sign-In falló (p.ej., el usuario canceló el diálogo).
+            Toast.makeText(requireContext(), "Inicio de sesión con Google cancelado o fallido.", Toast.LENGTH_LONG).show()
         }
     }
+
 }

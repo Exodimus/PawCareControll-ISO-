@@ -7,44 +7,56 @@
     android:id="@+id/main"
     android:layout_height="match_parent"
     tools:context=".list_fragments.ListPetsFragment">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primary">
 
+        <!-- Contenido principal -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingVertical="40dp"
             android:gravity="center_horizontal"
-            android:paddingHorizontal="55dp">
+            android:paddingHorizontal="40dp">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/inika"
-                android:text="Mascotas"
-                android:textAlignment="center"
+                android:text="Mascotas Registradas"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:fontFamily="@font/inika"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- RecyclerView para mostrar la lista de mascotas -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPets"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="60dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_pet" />
 
         </LinearLayout>
 
+        <!-- Floating Action Button para crear una nueva mascota (Estilo y margen ajustados) -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/btnCreatePet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="bottom|end"
-            android:contentDescription="Añadir"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="100dp"
             android:text="Crear"
-            app:icon="@drawable/btn_add_image"
-            android:backgroundTint="@color/dark_details"
             android:textColor="@color/white"
+            app:backgroundTint="@color/dark_details"
+            app:icon="@drawable/btn_add_image"
             app:iconTint="@color/white"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,17 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:foregroundTint="@color/primary"
             app:backgroundTint="@color/dark_details"
             app:itemActiveIndicatorStyle="@android:color/transparent"
             app:itemIconSize="40dp"
             app:itemIconTint="@color/white"
-            app:itemTextAppearanceActive="@dimen/design_bottom_navigation_active_text_size"
-            app:itemTextAppearanceInactive="@dimen/design_bottom_navigation_text_size"
             app:itemTextColor="@color/white"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_navigation_menu"
-            tools:ignore="PrivateResource" />
+            app:menu="@menu/bottom_navigation_menu" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

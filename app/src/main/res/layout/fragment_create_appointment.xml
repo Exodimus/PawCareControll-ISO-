@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     tools:context=".create_fragments.CreateAppointmentFragment">
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary"
-        android:paddingBottom="0dp">
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingVertical="40dp"
             android:gravity="center_horizontal"
-            android:paddingHorizontal="55dp">
+            android:paddingHorizontal="40dp">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="24dp"
                 android:fontFamily="@font/inika"
                 android:textStyle="bold"
                 android:text="Registro de Citas"
@@ -33,58 +32,104 @@
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
-            <CalendarView
-                android:id="@+id/calendarView"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_rounded_box"
-                app:layout_constraintTop_toBottomOf="@id/imageView2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <!-- Spinner para seleccionar la Mascota -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mascota"
-                android:layout_marginBottom="0dp"
-                android:layout_marginTop="20dp"
-                app:boxCollapsedPaddingTop="0dp">
+                android:text="Mascota"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inika"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputMascota"
-                    android:layout_width="match_parent"
+            <Spinner
+                android:id="@+id/mascota_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rounded_input"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                tools:listitem="@android:layout/simple_spinner_item"/>
+
+            <!-- Spinner para seleccionar el Doctor -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Doctor"
+                android:textColor="@color/white"
+                android:fontFamily="@font/inika"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp"/>
+
+            <Spinner
+                android:id="@+id/doctor_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rounded_input"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"
+                tools:listitem="@android:layout/simple_spinner_item"/>
+
+            <!-- Contenedor para los selectores de Fecha y Hora -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btn_select_date"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_rounded_input"
-                    android:fontFamily="@font/inika"
+                    android:text="Seleccionar Fecha"
+                    android:backgroundTint="@color/secondary"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tv_selected_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:paddingVertical="13dp"
-                    />
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="2025-12-25"/>
+            </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="32dp">
+
+                <Button
+                    android:id="@+id/btn_select_time"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:hint="Doctor"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="30dp"
-                    app:boxCollapsedPaddingTop="0dp">
+                    android:text="Seleccionar Hora"
+                    android:backgroundTint="@color/secondary"
+                    android:textColor="@color/white"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputDoc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_rounded_input"
-                        android:fontFamily="@font/inika"
-                        android:textSize="16sp"
-                        android:paddingVertical="13dp"
-                        />
+                <TextView
+                    android:id="@+id/tv_selected_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="14:30:00"/>
+            </LinearLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
+            <!-- Botón para guardar la cita -->
             <Button
                 android:id="@+id/btnAddAppointment"
                 android:layout_width="match_parent"
@@ -92,13 +137,10 @@
                 android:backgroundTint="@color/dark_details"
                 android:textColor="@color/white"
                 android:fontFamily="@font/inika"
-                android:paddingHorizontal="10dp"
-                android:text="Guardar"
-                android:layout_marginTop="0dp"
-                android:textSize="21sp" android:minHeight="48dp"/>
+                android:text="Guardar Cita"
+                android:textSize="21sp"/>
 
         </LinearLayout>
+    </ScrollView>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

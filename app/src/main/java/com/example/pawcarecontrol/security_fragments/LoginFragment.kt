@@ -37,6 +37,14 @@ class LoginFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val user = UserClient.service.getUserByEmailAndPass(userEmail, userPass)
+                        // 1. Obtener el email como identificador principal.
+                        val userEmail = user.correo ?: ""
+
+                        // 2. Guardar el email en SharedPreferences para usarlo en otros fragments.
+                        val prefs = requireContext().getSharedPreferences("user_prefs", android.content.Context.MODE_PRIVATE)
+                        prefs.edit()
+                            .putString("username", userEmail)
+                            .apply()
                         // Actualizar la UI en el hilo principal
                         withContext(Dispatchers.Main) {
                             Toast.makeText(requireContext(), "Inicio de sesión completado", Toast.LENGTH_LONG)
